@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class App {
 
+    /*
     // todo Task 1
     public static void oneMonthCalendar(int days, int start) {
         // code here...
@@ -43,6 +44,8 @@ public class App {
         // code here...
         return -1;
     }
+
+*/
 
     public static void main(String[] args) {
         // test your method implementations here
