@@ -2,6 +2,8 @@ package at.ac.fhcampuswien;
 
 import org.junit.jupiter.api.*;
 import java.io.*;
+import java.lang.reflect.Method;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @Timeout(2)
@@ -50,12 +52,18 @@ class AppTest {
                 "10 11 12 13 14 15 16 " + System.lineSeparator() +
                 "17 18 19 20 21 22 23 " + System.lineSeparator() +
                 "24 25 26 27 28 29 30 " + System.lineSeparator();
-
-        // action
-        App.oneMonthCalendar(30, 6);
-
-        // assertion
-        assertEquals(output, bos.toString());
+        try {
+            // action
+            Method m = App.class.getMethod("oneMonthCalendar", int.class, int.class);
+            m.invoke(null, 30, 6);
+            // assertion
+            assertEquals(output, bos.toString());
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called oneMonthCalendar.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred.");
+        }
     }
 
     @Test
@@ -66,11 +74,18 @@ class AppTest {
                 "21 22 23 24 25 26 27 " + System.lineSeparator() +
                 "28 " + System.lineSeparator();
 
-        // action
-        App.oneMonthCalendar(28, 2);
-
-        // assertion
-        assertEquals(output, bos.toString());
+        try {
+            // action
+            Method m = App.class.getMethod("oneMonthCalendar", int.class, int.class);
+            m.invoke(null, 28, 2);
+            // assertion
+            assertEquals(output, bos.toString());
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called oneMonthCalendar.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred.");
+        }
     }
 
     @Test
@@ -86,11 +101,18 @@ class AppTest {
                 794471793,
                 551188310};
 
-        // action
-        long[] output = App.lcg(0);
-
-        // assertion
-        Assertions.assertArrayEquals(test, output);
+        try {
+            // action
+            Method m = App.class.getMethod("lcg", long.class);
+            long[] output = (long[])m.invoke(null, 0);
+            // assertion
+            Assertions.assertArrayEquals(test, output);
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called lcg.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred. Check data types and return types.");
+        }
     }
 
     @Test
@@ -107,11 +129,18 @@ class AppTest {
                 "Guess number 3: " +
                 "You won wisenheimer!" + System.lineSeparator();
 
-        // action
-        App.guessingGame(49);
-
-        // assertion
-        assertEquals(output, bos.toString());
+        try {
+            // action
+            Method m = App.class.getMethod("guessingGame", int.class);
+            m.invoke(null, 49);
+            // assertion
+            assertEquals(output, bos.toString());
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called guessingGame.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred.");
+        }
     }
 
     @Test
@@ -148,21 +177,37 @@ class AppTest {
                 "Guess number 10: " +
                 "You lost! Have you ever heard of divide & conquer?" + System.lineSeparator();
 
-        // action
-        App.guessingGame(49);
-
-        // assertion
-        assertEquals(output, bos.toString());
+        try {
+            // action
+            Method m = App.class.getMethod("guessingGame", int.class);
+            m.invoke(null, 49);
+            // assertion
+            assertEquals(output, bos.toString());
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called guessingGame.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred.");
+        }
     }
 
     @Test
     public void randomNumberBetweenOneAndHundred() {
         int test = 0;
 
-        // assertion
-        for (int i = 0; i < 100; i++) {
-            test = App.randomNumberBetweenOneAndHundred();
-            assertTrue(1 <= test && test <= 100);
+        try {
+            // action
+            Method m = App.class.getMethod("randomNumberBetweenOneAndHundred");
+            // assertion
+            for (int i = 0; i < 100; i++) {
+                test = (int)m.invoke(null);
+                assertTrue(1 <= test && test <= 100);
+            }
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called randomNumberBetweenOneAndHundred.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred. Check data types and return types.");
         }
     }
 
@@ -170,82 +215,139 @@ class AppTest {
     public void swapArrays1() {
         int[] array1 = new int[]{1, 2, 3, 4, 5, 6};
         int[] array2 = new int[]{100, 202, 30, 14, 15, 16};
+        boolean result;
 
-        // action
-        boolean result = App.swapArrays(array1, array2);
-
-        // assertion
-        assertTrue(result);
-        assertArrayEquals(array1, new int[]{100, 202, 30, 14, 15, 16});
-        assertArrayEquals(array2, new int[]{1, 2, 3, 4, 5, 6});
+        try {
+            // action
+            Method m = App.class.getMethod("swapArrays", int[].class, int[].class);
+            result = (boolean)m.invoke(null, array1, array2);
+            // assertion
+            assertTrue(result);
+            assertArrayEquals(array1, new int[]{100, 202, 30, 14, 15, 16});
+            assertArrayEquals(array2, new int[]{1, 2, 3, 4, 5, 6});
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called swapArrays.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred.");
+        }
     }
 
     @Test
     public void swapArrays2() {
         int[] array1 = new int[]{1, 2, 3, 4, 5, 6, 7};
         int[] array2 = new int[]{100, 202, 30, 14, 15, 16};
+        boolean result;
 
-        // action
-        boolean result = App.swapArrays(array1, array2);
-
-        // assertion
-        assertFalse(result);
-        assertArrayEquals(array2, new int[]{100, 202, 30, 14, 15, 16});
-        assertArrayEquals(array1, new int[]{1, 2, 3, 4, 5, 6, 7});
+        try {
+            // action
+            Method m = App.class.getMethod("swapArrays", int[].class, int[].class);
+            result = (boolean)m.invoke(null, array1, array2);
+            // assertion
+            assertFalse(result);
+            assertArrayEquals(array2, new int[]{100, 202, 30, 14, 15, 16});
+            assertArrayEquals(array1, new int[]{1, 2, 3, 4, 5, 6, 7});
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called swapArrays.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred.");
+        }
     }
 
     @Test
     public void camelCase1() {
         String test = "MyNameIsntAlice";
-
-        // action
-        String result = App.camelCase("my name isn't Alice!");
-
-        // assertion
-        assertEquals(test, result);
+        String result;
+        try {
+            // action
+            Method m = App.class.getMethod("camelCase", String.class);
+            result = (String)m.invoke(null, "my name isn't Alice!");
+            // assertion
+            assertEquals(test, result);
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called camelCase.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred.");
+        }
     }
 
     @Test
     public void camelCase2() {
         String test = "ButANoisyNoiseAnnoysAnOysterMore";
-
-        // action
-        String result = App.camelCase("but a noisY noise annoYs an oYster more.");
-
-        // assertion
-        assertEquals(test, result);
+        String result;
+        try {
+            // action
+            Method m = App.class.getMethod("camelCase", String.class);
+            result = (String)m.invoke(null, "but a noisY noise annoYs an oYster more.");
+            // assertion
+            assertEquals(test, result);
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called camelCase.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred.");
+        }
     }
 
     @Test
     public void checkDigit1() {
         int test = 2;
+        int result;
+        int[] input = new int[]{4, 0, 4, 4, 4, 8, 2, 9, 3};
 
-        // action
-        int result = App.checkDigit(new int[]{4, 0, 4, 4, 4, 8, 2, 9, 3});
-
-        // assertion
-        assertEquals(test, result);
+        try {
+            // action
+            Method m = App.class.getMethod("checkDigit", int[].class);
+            result = (int)m.invoke(null, input);
+            // assertion
+            assertEquals(test, result);
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called checkDigit.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred.");
+        }
     }
 
     @Test
     public void checkDigit2() {
         int test = 5;
+        int result;
+        int[] input = new int[]{3, 9, 1, 5, 8};
 
-        // action
-        int result = App.checkDigit(new int[]{3, 9, 1, 5, 8});
-
-        // assertion
-        assertEquals(test, result);
+        try {
+            // action
+            Method m = App.class.getMethod("checkDigit", int[].class);
+            result = (int)m.invoke(null, input);
+            // assertion
+            assertEquals(test, result);
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called checkDigit.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred.");
+        }
     }
 
     @Test
     public void checkDigit3() {
         int test = 0;
+        int result;
+        int[] input = new int[]{0, 0, 4, 4, 4, 8, 2, 9, 3};
 
-        // action
-        int result = App.checkDigit(new int[]{0, 0, 4, 4, 4, 8, 2, 9, 3});
-
-        // assertion
-        assertEquals(test, result);
+        try {
+            // action
+            Method m = App.class.getMethod("checkDigit", int[].class);
+            result = (int)m.invoke(null, input);
+            // assertion
+            assertEquals(test, result);
+        } catch (NoSuchMethodException nsme){
+            fail("There should be a static method called checkDigit.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Some other problems have occurred.");
+        }
     }
 }
